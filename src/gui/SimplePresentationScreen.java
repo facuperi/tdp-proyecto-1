@@ -1,21 +1,20 @@
 package gui;
+import javax.swing.JFrame;
 
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.time.LocalDateTime;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entities.Student;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
@@ -25,113 +24,106 @@ public class SimplePresentationScreen extends JFrame {
 	private JPanel tabInformation;
 	private JTabbedPane tabbedPane;
 	private Student studentData;
-
+	private JTextField tfLU,tfApellido,tfNombre,tfMail,tfURL;
+	private JLabel lblLU,lblApellido,lblNombre,lblMail,lblURL,lblFecha,lblImagen;
+	
 	public SimplePresentationScreen(Student studentData) {
 		this.studentData = studentData;
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		setTitle("TdP-DCIC-UNS 2021 :: Pantalla de presentaciÃ³n");
+		setTitle("TdP-DCIC-UNS 2021 :: Pantalla de presentación");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(new Dimension(615, 250));
+		setSize(new Dimension(615, 280));
 		setResizable(false);
 		setContentPane(contentPane);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SimplePresentationScreen.class.getResource("/images/tdp.png")));
 		
 		init();
 	}
 	
 	private void init() {
+		contentPane.setLayout(null);
+		
 		// Tabbed Pane to student personal data
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(5, 5, 430, 203);
 		tabInformation = new JPanel();
-		tabInformation.setPreferredSize(new Dimension(425, 275));
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/tdp.png")));
-		tabbedPane.addTab("InformaciÃ³n del alumno", null, tabInformation, "Muestra la informaciÃ³n declarada por el alumno");
-		contentPane.add(tabbedPane, BorderLayout.WEST);
+		tabInformation.setPreferredSize(new Dimension(425, 240));
+		tabbedPane.addTab("Información del alumno", null, tabInformation, "Muestra la información declarada por el alumno");
+		tabInformation.setLayout(null);
 		
-		JTextField tfSalidaLU = new JTextField();
-		tfSalidaLU.setBounds(90, 10, 175, 19);
-		this.getContentPane().add(tfSalidaLU);
-		tfSalidaLU.setColumns(10);
-		tfSalidaLU.setText(Integer.toString(studentData.getId()));
-
 		
-		JLabel lblLU = new JLabel("LU");
-		lblLU.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblLU.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLU.setBounds(40, 9, 40, 19);
-		this.getContentPane().add(lblLU);
+		tfLU = new JTextField();
+		tfLU.setBounds(80, 10, 332, 19);
+		tabInformation.add(tfLU);
+		tfLU.setColumns(10);
+		tfLU.setText(Integer.toString(studentData.getId()));
 		
-		JTextField tfApellido = new JTextField();
-		tfApellido.setBounds(90, 42, 175, 19);
-		this.getContentPane().add(tfApellido);
+		lblLU = new JLabel("LU");
+		lblLU.setBounds(10, 13, 63, 13);
+		tabInformation.add(lblLU);
+		
+		tfApellido = new JTextField();
+		tfApellido.setBounds(80, 39, 315, 19);
 		tfApellido.setColumns(10);
+		tabInformation.add(tfApellido);
 		tfApellido.setText(studentData.getLastName());
-
 		
-		JTextField tfNombre = new JTextField();
-		tfNombre.setBounds(90, 71, 175, 19);
-		this.getContentPane().add(tfNombre);
+		tfNombre = new JTextField();
+		tfNombre.setBounds(80, 68, 315, 19);
 		tfNombre.setColumns(10);
-		tfApellido.setText(studentData.getFirstName());
-
+		tabInformation.add(tfNombre);
+		tfNombre.setText(studentData.getFirstName());
 		
-		JTextField tfURL = new JTextField();
-		tfURL.setBounds(90, 100, 175, 19);
-		this.getContentPane().add(tfURL);
+		tfMail = new JTextField();
+		tfMail.setBounds(80, 97, 315, 19);
+		tfMail.setColumns(10);
+		tabInformation.add(tfMail);
+		tfMail.setText(studentData.getMail());
+		
+		tfURL = new JTextField();
+		tfURL.setBounds(80, 126, 315, 19);
 		tfURL.setColumns(10);
-		tfApellido.setText(studentData.getGithubURL());
-
+		tabInformation.add(tfURL);
+		tfURL.setText(studentData.getGithubURL());
 		
-		JTextField tfImagen = new JTextField();
-		tfImagen.setBounds(90, 129, 175, 19);
-		this.getContentPane().add(tfImagen);
-		tfImagen.setColumns(10);
-		tfApellido.setText(studentData.getPathPhoto());
-
+		lblApellido = new JLabel("Apellido");
+		lblApellido.setBounds(10, 42, 60, 15);
+		tabInformation.add(lblApellido);
 		
-		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblApellido.setBounds(35, 38, 45, 23);
-		this.getContentPane().add(lblApellido);
+		lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(10, 71, 35, 15);
+		tabInformation.add(lblNombre);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNombre.setBounds(35, 72, 45, 16);
-		this.getContentPane().add(lblNombre);
+		lblMail = new JLabel("mail");
+		lblMail.setBounds(10, 100, 50, 15);
+		tabInformation.add(lblMail);
 		
-		JLabel lblURL = new JLabel("URL");
-		lblURL.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblURL.setBounds(35, 100, 45, 19);
-		this.getContentPane().add(lblURL);
+		lblURL = new JLabel("URL");
+		lblURL.setBounds(10, 129, 71, 15);
+		tabInformation.add(lblURL);
+		contentPane.add(tabbedPane);
 		
-		JLabel lblImagen = new JLabel("Imagen");
-		lblImagen.setHorizontalAlignment(SwingConstants.LEFT);
-		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblImagen.setBounds(28, 126, 52, 24);
-		this.getContentPane().add(lblImagen);
-		
-		JLabel lblFecha = new JLabel("");
-		lblFecha.setBounds(35, 153, 371, 13);
-		this.getContentPane().add(lblFecha);
-		
+		lblFecha = new JLabel("");
+		lblFecha.setBounds(20, 220, 430, 25);
+		contentPane.add(lblFecha);
+	
 		LocalDateTime tiempo = LocalDateTime.now();
 		int horas  = tiempo.getHour();
 		int minutos = tiempo.getMinute();
 		int segundos = tiempo.getSecond();
 		int dia = tiempo.getDayOfMonth();
 		int mes = tiempo.getMonthValue();
-		int anio = tiempo.getYear();
+		int año = tiempo.getYear();
+		lblFecha.setText("Esta ventana fue generada el " + dia + "/" + mes + "/" + año + " a las: " +  horas  + ":"+ minutos +":"+segundos );
 		
-		lblFecha.setText("Esta ventana fue generada el " + dia + "/" + mes + "/" + anio + " a las: " +  horas  + ":"+ minutos +":"+segundos );
-		
-		JLabel lblImage = new JLabel("");
-		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-		Image imgagen = new ImageIcon(this.getClass().getResource("/images/imagenFacu.jpg")).getImage();
-		lblImage.setIcon(new ImageIcon(imgagen.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH)));
-		lblImage.setBounds(280, 13, 126, 122);
-		this.getContentPane().add(lblImage);	
+		lblImagen = new JLabel("");
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		Image img = new ImageIcon(this.getClass().getResource(studentData.getPathPhoto())).getImage();
+		lblImagen.setIcon(new ImageIcon(img.getScaledInstance(275, 155,  java.awt.Image.SCALE_SMOOTH)));
+		lblImagen.setBounds(420, 26, 130, 140);
+		contentPane.add(lblImagen);
+	
 	}
 }
